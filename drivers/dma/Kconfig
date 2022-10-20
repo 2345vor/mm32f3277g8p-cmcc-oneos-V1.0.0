@@ -1,0 +1,5 @@
+menu "DMA"
+    config OS_USING_DMA
+        bool "Enable DMA RAM"
+        default y
+endmenu

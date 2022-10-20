@@ -1,0 +1,69 @@
+menu "OneTLS"
+
+    config OS_USING_ONETLS
+        bool "Enable onetls"
+        default n
+        help 
+            OneTLS is a lightweight SSL/TLS library, supporting the newest TLS 1.3 and DTLS 1.3 industry standards
+
+        if OS_USING_ONETLS
+            config ONETLS_DEBUG
+                bool "Enable onetls debug"
+                default y
+            config ONETLS_USING_PSA
+                bool "Enable psa crypto interface"
+                default y
+            config ONETLS_SEC_MEM_CLEAN
+                bool "Enable memory cleaning for security"
+                default n
+            config ONETLS_SOCKET_WAIT_TIME
+                hex "Socket wait time"
+                default 0xFFFFFFFF
+            config ONETLS_MAX_PACKET_LEN
+                int "The max packet length"
+                default 1024
+
+            config ONETLS_LOG_STRING_MAX_LEN
+                int "The max len of log string"
+                default 255
+            config ONETLS_POSIX_IO
+                bool "Enable posix io"
+                default y
+
+            menu "Cipher suites"
+                config ONETLS_ENABLE_TLS_AES_128_GCM_SHA256
+                    bool "TLS_AES_128_GCM_SHA256"
+                    default y
+                config ONETLS_ENABLE_TLS_AES_256_GCM_SHA384
+                    bool "TLS_AES_256_GCM_SHA384(cannot use in psk exchange mode)"
+                    default n
+                config ONETLS_ENABLE_TLS_CHACHA20_POLY1305_SHA256
+                    bool "TLS_CHACHA20_POLY1305_SHA256"
+                    default n
+                config ONETLS_ENABLE_TLS_AES_128_CCM_SHA256
+                    bool "TLS_AES_128_CCM_SHA256"
+                    default n
+                config ONETLS_ENABLE_TLS_AES_128_CCM_8_SHA256
+                    bool "TLS_AES_128_CCM_8_SHA256"
+                    default n
+            endmenu
+
+            menu "Curve groups"
+                config ONETLS_ENABLE_ECDHE_SECP256R1
+                    bool "SECP256R1"
+                    default n
+                config ONETLS_ENABLE_ECDHE_SECP384R1
+                    bool "SECP384R1"
+                    default n
+                config ONETLS_ENABLE_ECDHE_SECP521R1
+                    bool "SECP521R1"
+                    default n
+                config ONETLS_ENABLE_ECDHE_X25519
+                    bool "X25519"
+                    default y
+                config ONETLS_ENABLE_ECDHE_X448
+                    bool "X448(TODO)"
+                    default n
+            endmenu
+        endif
+endmenu 

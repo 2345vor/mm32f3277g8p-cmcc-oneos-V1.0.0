@@ -1,0 +1,15 @@
+Import('OS_ROOT')
+from build_tools import *
+
+pwd     = PresentDir()
+src     = []
+CPPPATH = [pwd]
+ 
+if IsDefined('OS_USING_CPU_USAGE') or IsDefined('OS_USING_TASK_MONITOR'):
+    src += ['source/resource_monitor.c']  
+
+
+group = AddCodeGroup('resource_monitor', src, depend = [''], CPPPATH = CPPPATH)
+
+Return('group')
+

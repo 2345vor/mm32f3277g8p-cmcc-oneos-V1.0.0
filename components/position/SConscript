@@ -1,0 +1,43 @@
+import osconfig
+from build_tools import *
+
+pwd     = PresentDir()
+src     = []
+CPPPATH = []
+objs  	= []
+LIB		= []
+LIBPATH = []
+group 	= []
+
+if IsDefined('OS_USING_OnePos'):
+	CPPPATH = [pwd + '/include']
+
+	if IsDefined('ONEPOS_CMD'):
+		src += Glob('source/onepos_cmd.c')
+	
+	if IsDefined('ONEPOS_WIFI_POS'):
+		src += Glob('source/wifi_src/*.c')
+		
+	if IsDefined('ONEPOS_CELL_POS'):
+		src += Glob('source/cell_src/*.c')
+	
+	if IsDefined('ONEPOS_WIFI_POS') or IsDefined('ONEPOS_CELL_POS'):
+		src += Glob('source/onepos_src_info.c')
+		src += Glob('source/onepos_interface.c')
+
+
+	if IsDefined('ONEPOS_GNSS_POS'):
+		if IsDefined('RVCR_USING_NMEA_0183_PROT'):
+			src += Glob('source/gnss_src/nmea_0183.c')
+
+		if IsDefined('ONEPOS_USING_GNSS_RCVR'):
+			src += Glob('source/gnss_src/rcvr_object.c')
+
+			if IsDefined('ONEPOS_USING_ICOFCHINA_GNSS_RCVR'):
+				src += Glob('source/gnss_src/icofchina/icofchina_rcvr.c')
+			if IsDefined('ONEPOS_USING_UNICORECOMM_GNSS_RCVR'):		
+				src += Glob('source/gnss_src/unicorecomm/unicorecomm_rcvr.c')
+
+group = AddCodeGroup('onepos', src, depend = ['OS_USING_OnePos'], CPPPATH = CPPPATH)
+
+Return('group')

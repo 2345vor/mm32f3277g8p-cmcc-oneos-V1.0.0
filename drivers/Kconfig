@@ -1,0 +1,6 @@
+menu "Drivers"
+    config OS_USING_DEVICE
+        bool "Enable device manager"
+        default y
+    source "$OS_ROOT/drivers/*/Kconfig"
+endmenu

@@ -1,0 +1,7 @@
+menu "ICOFCHINA Config"
+
+    config ICOFCHINA_DEVICE_NAME
+        string "ICOFCHINA using interface device name"
+        default "uart2"
+
+endmenu

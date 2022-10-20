@@ -1,0 +1,7 @@
+if SERIES_MM32F327X
+source "$OS_ROOT/drivers/hal/mm32/drivers/f327x/Kconfig"
+endif
+
+if SERIES_MM32L3
+#source "$OS_ROOT/drivers/hal/mm32/drivers/l3xx/Kconfig"
+endif

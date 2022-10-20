@@ -1,0 +1,42 @@
+menu "GNSS Config"
+
+    if ONEPOS_GNSS_POS
+        config RVCR_USING_PROT_PARSER
+        bool "GNSS using protocol parser"
+        default n
+
+        menu "GNSS RCVR PROTO"
+            if RVCR_USING_PROT_PARSER
+                config RVCR_USING_NMEA_0183_PROT
+                bool "GNSS rcvr using nmea_0183 protocol"
+                default y
+            endif
+        endmenu
+
+        config RCVR_USING_RESET_OPS
+        bool "GNSS rcvr supp reset operation"
+        default n
+
+        config ONEPOS_USING_GNSS_RCVR
+        bool "GNSS support gnss receiver"
+        default y
+
+        if ONEPOS_USING_GNSS_RCVR
+            config ONEPOS_USING_ICOFCHINA_GNSS_RCVR
+            bool "Using icochina gnss receiver"
+            default n
+
+            if ONEPOS_USING_ICOFCHINA_GNSS_RCVR
+                source "$OS_ROOT/components/position/source/gnss_src/icofchina/Kconfig"
+            endif
+
+            config ONEPOS_USING_UNICORECOMM_GNSS_RCVR
+            bool "Using unicorecomm gnss receiver"
+            default n
+
+            if ONEPOS_USING_UNICORECOMM_GNSS_RCVR
+                source "$OS_ROOT/components/position/source/gnss_src/unicorecomm/Kconfig"
+            endif
+        endif
+    endif
+endmenu

@@ -1,0 +1,7 @@
+menu "UNICORECOMM Config"
+
+    config UNICORECOMM_DEVICE_NAME
+        string "UNICORECOMM using interface device name"
+        default "uart3"
+        
+endmenu
